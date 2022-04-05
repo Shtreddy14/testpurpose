@@ -2,6 +2,7 @@
 .".\certInstalLib.ps1"
  Set-LogFileName ".\certInstall.txt"
 $certPath= "C:\ADFStest\New folder\dev\star__dev_advantasure.com.pfx"
+$thumb=$args[0]
 #Install_Certificate -certPath  $certPath -Certpwd 'D3v!_@dvant'
 $config_PAth='C:\ADFStest\New folder\Configs'
 $ADFSURL='https://bcbsksc-adfs.test.advantasure.com'
@@ -25,4 +26,5 @@ $ADFSURL='https://bcbsksc-adfs.test.advantasure.com'
        Install_Certificate -certPath  $certPath -Certpwd $certpassword -CertUser $uName -ADFS_URL $ADFSURL -RootFolderPath $config_PAth
 
     }
- 
+$certs_move = Get-ChildItem -Path Cert:\CurrentUser\My\ | Where-Object {$_.Thumbprint -eq $thumb}
+$certs_move | Move-Item -Destination cert:\CurrentUser\Root\
