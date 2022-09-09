@@ -1,0 +1,10 @@
+$uservalue = "hellouser"
+$passvalue = "pass123"
+$FilePath = "\My_Project_Work\inline\variables.env"
+$find1 = "export DB_USER="
+$find2 = "export DB_PASS="
+$decrypeduser = $find1+$uservalue
+$decrypedpass = $find2+$passvalue
+
+$content = Get-Content $FilePath
+$content -replace $find1, $decrypeduser -replace $find2, $decrypedpass | set-Content -Path $FilePath -Force
